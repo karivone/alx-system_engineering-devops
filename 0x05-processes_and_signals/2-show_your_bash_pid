@@ -3,4 +3,4 @@
 # shellcheck disable=SC2009
 # ignore shellcheck suggestion for pgrep
 
-ps -auxf | grep "bash"
+ps -auroot | grep "bash"

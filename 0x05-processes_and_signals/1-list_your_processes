@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
-# display all processes (a): user-oriented (u), w/wo TTY (x), show heirachy (f)
+# list all my currently running processes
 
-ps -auroot
+# source: https://linuxize.com/post/ps-command-in-linux/
+ps -auxf

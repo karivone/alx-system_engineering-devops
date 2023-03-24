@@ -1,5 +1,5 @@
 # using exec to kill a process named killmenow
 exec {'killmenow':
-    command => 'pkill killmenow',
-    path => '/usr/bin',
+    command = > 'pkill killmenow',
+    path = > '/usr/bin',
 }

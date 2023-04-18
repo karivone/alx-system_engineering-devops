@@ -1,21 +1,18 @@
-#
-# The MySQL  Server configuration file.
-#
-# For explanations see
-# http://dev.mysql.com/doc/mysql/en/server-system-variables.html
+#!/bin/bash
 
-[mysqld]
-pid-file        = /var/run/mysqld/mysqld.pid
-socket          = /var/run/mysqld/mysqld.sock
-datadir         = /var/lib/mysql
-log-error       = /var/log/mysql/error.log
-# By default we only accept connections from localhost
-# bind-address  = 127.0.0.1
-# Disabling symbolic-links is recommended to prevent assorted security risks
-symbolic-links=0
+# Get the current date in the desired format
+DATE=$(date +%d-%m-%Y)
 
-server-id       = 2
-binlog_do_db    = tyrell_corp
-log_bin         = /var/log/mysql/mysql-bin.log
-relay-log       = /var/log/mysql/mysql-relay-bin.log
+# Define the name of the backup file
+BACKUP_FILE="backup.sql"
+
+# Get the MySQL root password as the script argument
+MYSQL_ROOT_PASSWORD=$1
+
+# Dump all MySQL databases into the backup file
+mysqldump -u root -p"$MYSQL_ROOT_PASSWORD" --all-databases > "$BACKUP_FILE"
+
+# Compress the backup file into a tar.gz archive
+tar -czvf "$DATE.tar.gz" "$BACKUP_FILE"
+
 

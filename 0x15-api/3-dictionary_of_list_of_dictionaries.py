@@ -1,7 +1,8 @@
 #!/usr/bin/python3
-#extend your Python script to export data in the JSON format.
+# extend your Python script to export data in the JSON format.
 import json
 import requests
+
 
 if __name__ == '__main__':
     url_base = 'https://jsonplaceholder.typicode.com'
@@ -40,4 +41,3 @@ if __name__ == '__main__':
     # Write JSON to file
     with open('todo_all_employees.json', 'w') as file:
         json.dump(todo_list, file)
-

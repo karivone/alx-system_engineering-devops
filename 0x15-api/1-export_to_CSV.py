@@ -1,8 +1,9 @@
 #!/usr/bin/python3
-#extend your Python script to export data in the CSV format
+# extend your Python script to export data in the CSV format
 import csv
 import requests
 import sys
+
 
 def display():
     # Fetching the employee name
@@ -41,6 +42,6 @@ def display():
     print('\n'.join([f"\t{task['title']}" for task in completed_tasks]))
     print(f"\nTask data exported to {filename}")
 
+
 if __name__ == "__main__":
     display()
-

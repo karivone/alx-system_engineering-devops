@@ -1,8 +1,8 @@
 #!/usr/bin/python3
-"""
+'''
 Gather data from an API
 Export data in the CSV format
-"""
+'''
 
 import csv
 import requests

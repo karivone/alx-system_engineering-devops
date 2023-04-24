@@ -17,8 +17,7 @@ if __name__ == "__main__":
 
     with open(f"{user_id}.csv", "w", newline="") as csvfile:
         fieldnames = ["userId", "username", "completed", "title"]
-        writer = csv.DictWriter(csvfile, fieldnames=fieldnames,
-                quoting=csv.QUOTE_ALL)
+        writer = csv.DictWriter(csvfile, quoting=csv.QUOTE_ALL)
         writer.writeheader()
         task_data = [
                 {

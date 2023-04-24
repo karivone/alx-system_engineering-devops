@@ -6,7 +6,11 @@ import sys
 def display():
     # Fetching the employee name
     user_url = f"https://jsonplaceholder.typicode.com/users/{sys.argv[1]}"
-    employee_name = requests.get(user_url).json()['name']
+    try:
+        employee_name = requests.get(user_url).json()['name']
+    except KeyError:
+        print(f"Invalid employee ID: {sys.argv[1]}")
+        return
 
     # Fetching the employee's todo list
     todo_url = f"https://jsonplaceholder.typicode.com/todos?userId={sys.argv[1]}"

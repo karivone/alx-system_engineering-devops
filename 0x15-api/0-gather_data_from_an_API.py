@@ -18,6 +18,3 @@ if __name__ == "__main__":
     print("Employee {} is done with tasks({}/{}):".format(
               user.get("name"), len(done_tasks), len(todos)))
     print("\n".join("\t {}".format(task) for task in done_tasks))
-
-    except (IndexError, KeyError, requests.exceptions.RequestException) as e:
-        print(f"Error: {e}")

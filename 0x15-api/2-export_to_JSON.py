@@ -1,8 +1,10 @@
 #!/usr/bin/python3
+
 '''
-extend your Python script to
-export data in the JSON format.
+Gather data from an API
+Export data in a JSON format file
 '''
+
 import json
 import requests
 from sys import argv
@@ -15,8 +17,8 @@ if __name__ == "__main__":
     todos = requests.get(url + "todos", params={"userId": user_id}).json()
 
     with open("{}.json".format(user_id), "w") as jsonfile:
-        for task in todos:
-            json.dump({user_id: [
-                      {"task": task.get("title"),
-                       "completed": task.get("completed"),
-                       "username": username}]}, jsonfile)
+        json.dump({user_id: [{
+                  "task": task.get("title"),
+                  "completed": task.get("completed"),
+                  "username": username}
+                   for task in todos]}, jsonfile)

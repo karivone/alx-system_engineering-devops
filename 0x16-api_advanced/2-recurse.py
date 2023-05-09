@@ -37,7 +37,7 @@ def recurse(subreddit, hot_list=[]):
             hot_list.append(article['data']['title'])
 
         url = url + '&after=' + articles['data']['after']
+    return hot_list
+
     else:
         return None
-
-    return hot_list

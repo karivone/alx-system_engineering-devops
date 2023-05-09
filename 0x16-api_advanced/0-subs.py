@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-#grt thr number of subs 
+""" grt thr number of subs""" 
 
 import requests
 

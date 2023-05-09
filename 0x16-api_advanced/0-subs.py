@@ -1,23 +1,31 @@
-#!/usr/bin/python3
-
-""" a script to retrieve the no of subs on a subreddi"""
+#!/usr/bin/env python3
 
 import requests
 
 
 def number_of_subscribers(subreddit):
-    '''defines the no of subcribers on sub reddit '''
+    """
+    Returns the number of subscribers for the given subreddit.
 
-    url = "https://www.reddit.com/r/{}/about.json".format(subreddit)
-    # Set custom User-Agent to avoid Too Many Requests error
-    headers = {'User-Agent': 'MyBot/0.0.1'}
-    # Make a request to the Reddit API
+    :param subreddit: A string representing the name of the subreddit.
+    :return: An integer representing the number of subscribers for the given subreddit, or 0 if the subreddit is invalid.
+    """
+
+    # Set the URL to query for the subreddit information
+    url = f"https://www.reddit.com/r/{subreddit}/about.json"
+
+    # Set a custom User-Agent header to avoid a 429 Too Many Requests error
+    headers = {"User-Agent": "My Reddit Client"}
+
+    # Query the subreddit information from the Reddit API
     response = requests.get(url, headers=headers, allow_redirects=False)
 
-    # Check if the request was successful
+    # If the query was successful, extract the number of subscribers from the response
     if response.status_code == 200:
-        # Get the number of subscribers from the response JSON
-        return response.json()['data']['subscribers']
-    else:
-        # Return 0 if the subreddit is invalid
+        data = response.json().get("data")
+        subscribers = data.get("subscribers")
+        return subscribers
+
+    # If the subreddit is invalid, return 0
+    elif response.status_code == 404:
         return 0

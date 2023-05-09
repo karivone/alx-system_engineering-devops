@@ -12,7 +12,7 @@ def top_ten(subreddit):
     """
 
     # Set the URL to query for the subreddit's hot posts
-    url = f"https://www.reddit.com/r/{subreddit}/hot.json"
+    url = "https://www.reddit.com/r/{}/hot.json".format(subreddit)
 
     # Set a custom User-Agent header to avoid a 429 Too Many Requests error
     headers = {"User-Agent": "My Reddit Client"}

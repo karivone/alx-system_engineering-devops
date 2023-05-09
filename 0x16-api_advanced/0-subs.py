@@ -24,10 +24,10 @@ def number_of_subscribers(subreddit):
     # If the query was successful, extract the number
     # of subscribers from the response
     if response.status_code == 200:
-        data = response.json().get("data")
-        subscribers = data.get("subscribers")
+        data = response.json()
+        subscribers = data.get("data").get("subscribers")
         return subscribers
 
     # If the subreddit is invalid, return 0
-    elif response.status_code == 404:
+    else:
         return 0

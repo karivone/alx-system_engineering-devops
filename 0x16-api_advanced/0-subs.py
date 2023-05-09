@@ -8,7 +8,8 @@ def number_of_subscribers(subreddit):
     Returns the number of subscribers for the given subreddit.
 
     :param subreddit: A string representing the name of the subreddit.
-    :return: An integer representing the number of subscribers for the given subreddit, or 0 if the subreddit is invalid.
+    :return: An integer representing the number of subscribers for the given subreddit, 
+    or 0 if the subreddit is invalid.
     """
 
     # Set the URL to query for the subreddit information
@@ -20,7 +21,8 @@ def number_of_subscribers(subreddit):
     # Query the subreddit information from the Reddit API
     response = requests.get(url, headers=headers, allow_redirects=False)
 
-    # If the query was successful, extract the number of subscribers from the response
+    # If the query was successful, extract the number
+    # of subscribers from the response
     if response.status_code == 200:
         data = response.json().get("data")
         subscribers = data.get("subscribers")

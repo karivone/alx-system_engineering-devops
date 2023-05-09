@@ -8,8 +8,8 @@ def number_of_subscribers(subreddit):
     Returns the number of subscribers for the given subreddit.
 
     :param subreddit: A string representing the name of the subreddit.
-    :return: An integer representing the number of subscribers for the given subreddit, 
-    or 0 if the subreddit is invalid.
+    :return: An integer representing the number of subscribers for the given
+    subreddit, or 0 if the subreddit is invalid.
     """
 
     # Set the URL to query for the subreddit information

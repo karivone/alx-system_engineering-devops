@@ -4,7 +4,10 @@ $file_path = '/var/www/html/wp-settings.php'
 
 #replace "phpp" with "php"
 
-exec { 'replace_line':
-  command => "sed -i \"s/phpp/php/g\" ${file_path}",
+exec { 'replace_line-error':
+
+  command => "sed -i 's/phpp/php/g' ${file_path}",
+
   path    => ['/bin','/usr/bin']
+
 }

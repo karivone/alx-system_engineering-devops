@@ -1,0 +1,4 @@
+#!/bin/bash
+# Print every other line from the input, starting with the first
+
+awk 'NR % 2 == 1'

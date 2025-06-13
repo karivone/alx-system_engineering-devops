@@ -1,4 +1,2 @@
 #!/bin/bash
-
-# Convert and display the number in base 16
 printf "%x\n" "$DECIMAL"

@@ -1,15 +1,26 @@
 #!/usr/bin/env bash
-#Configure a new Nginx server so that /redirect_me is redirecting to another page
+# Bash script to configure nginx with a 301 redirect for /redirect_me
 
-sudo apt-get -y update
-sudo apt-get -y install nginx
-sudo ufw allow 'Nginx HTTP'
+set -e
 
-# Update nginx conf to add the redirect
-sed -i '/server_name _;/a \
+# Install nginx if not already installed
+apt-get update
+apt-get install -y nginx
+
+# Backup default nginx config
+cp /etc/nginx/sites-available/default /etc/nginx/sites-available/default.bak || true
+
+# Check if /redirect_me already exists, and only add if not present
+if ! grep -q "/redirect_me" /etc/nginx/sites-available/default; then
+    # Insert redirect block after server_name line
+    sed -i '/server_name _;/a \
     location /redirect_me { \
         return 301 https://www.youtube.com/watch?v=QH2-TGUlwu4; \
     }' /etc/nginx/sites-available/default
+fi
 
-sudo service nginx restart
+# Test nginx configuration
+nginx -t
 
+# Reload nginx
+systemctl reload nginx

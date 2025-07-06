@@ -1,0 +1,30 @@
+#!/usr/bin/env bash
+#configure HAproxy on your lb-01 server 
+#Distribute requests using a roundrobin algorithm
+#Make sure that HAproxy can be managed via an init script
+sudo apt-get update -y
+apt-get install haproxy=2.0.\*
+
+# apt-get install --no-install-recommends software-properties-common
+# add-apt-repository ppa:vbernat/haproxy-2.0
+
+# Configure HAProxy
+sudo tee -a /etc/haproxy/haproxy.cfg > /dev/null <<EOT
+frontend http-in
+        bind *:80
+        default_backend servers
+backend servers
+        balance roundrobin
+        server 99593-web-01 18.235.255.209:80 check
+        server 99593-web-02 34.207.189.167:80 check
+EOT
+
+# start HAProxy
+sudo /etc/init.d/haproxy start
+
+# set HAProxy to start on boot
+sudo update-rc.d haproxy defaults
+
+# reload HAProxy configuration
+sudo /etc/init.d/haproxy reload
+

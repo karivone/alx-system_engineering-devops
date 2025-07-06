@@ -1,15 +1,13 @@
 #!/usr/bin/env bash
-# Installs nginx and serves "Hello World!" at /
 
-# Exit on any error
-set -e
+# Update package index
+apt-get update
 
 # Install nginx
-apt-get update -y
 apt-get install -y nginx
 
-# Make sure nginx is started
-service nginx start || true
+# Overwrite the default index.html with Hello World!
+echo 'Hello World!' > /var/www/html/index.html
 
-# Overwrite the default index.html to contain ONLY Hello World!
-echo -n 'Hello World!' > /var/www/html/index.html
+# Restart nginx (no systemctl)
+service nginx restart

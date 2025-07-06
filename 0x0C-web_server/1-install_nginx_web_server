@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Bash script to install nginx and serve "Hello World!" at /
+# Install nginx and configure it to serve "Hello World!" at /
 
 set -e
 
@@ -7,11 +7,8 @@ set -e
 apt-get update -y
 apt-get install -y nginx
 
-# Replace default index.html with "Hello World!"
+# Ensure nginx is started
+service nginx start || service nginx restart
+
+# Replace default index.html content with Hello World!
 echo 'Hello World!' > /var/www/html/index.html
-
-# Check nginx config
-nginx -t
-
-# Reload nginx gracefully without systemctl
-service nginx restart

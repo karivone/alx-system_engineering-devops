@@ -1,16 +1,17 @@
 #!/usr/bin/env bash
-# Configures a new ubuntu machine by installing
-# Nginx where it should be listening on port 80
-# Serve a page that would return a Hello World string
-sudo apt-get  update
-sudo apt-get install -y nginx
+# Bash script to install nginx and serve "Hello World!" at /
 
-# allowing nginx on firewall
-#ufw allow 'Nginx HTTP'
+set -e
 
-# Creating new index
+# Install nginx
+apt-get update -y
+apt-get install -y nginx
+
+# Replace default index.html with "Hello World!"
 echo 'Hello World!' > /var/www/html/index.html
 
-# Starting nginx
-service nginx restart
+# Check nginx config
+nginx -t
 
+# Reload nginx gracefully without systemctl
+service nginx restart

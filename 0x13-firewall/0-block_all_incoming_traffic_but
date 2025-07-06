@@ -1,21 +1,23 @@
-#!/usr/bin/env bash
-# Denies all incoming traffic apart from SSH, HTTPS and HTTP
+echo -e "Updating\n"
+
 sudo apt-get update
-#Install ufw firewall on web-01 by running the following command
-sudo apt-get install ufw -y
-#Set the default incoming policy to deny all traffic
+
+echo -e "Installing UFW\n"
+
+sudo apt-get install -y ufw
+
+echo -e "configuring UFW...\n"
+
+# Allow Outgoing and Deny Incoming
 sudo ufw default deny incoming
-#Set the default outgoing policy to allow all traffic
 sudo ufw default allow outgoing
-# sudo ufw allow ssh
-#Allow incoming traffic on port 22 (SSH)
-sudo ufw allow 22/tcp
-#Allow incoming traffic on port 443 (HTTPS SSL)
-sudo ufw allow 80/tcp
-#Allow incoming traffic on port 80 (HTTP):
-sudo ufw allow 443/tcp
-#sudo ufw allow https
-#sudo ufw allow http
-#check the status of ufw to confirm that the rules have been applied correctly:
+
+# Allow ports
+sudo ufw allow 22
+sudo ufw allow 80
+sudo ufw allow 443
+
+# Enable Fire Wall
 sudo ufw enable
 
+echo -e "Process Completed.\n"

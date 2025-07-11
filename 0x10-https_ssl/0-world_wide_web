@@ -1,33 +1,11 @@
 #!/usr/bin/env bash
-# Script to audit DNS A records for specific subdomains
+# Script that displays information about subdomains.
 
-# Function to get DNS info
-get_dns_info() {
-    local domain=$1
-    local sub=$2
-    local full_domain="${sub}.${domain}"
-
-    # Use dig and extract from ANSWER SECTION
-    dig $full_domain | awk -v sub=$sub '
-    $1 == ";;" && $2 == "ANSWER" && $3 == "SECTION:" {getline; print_line=1; next}
-    print_line && NF >= 5 {
-        print "The subdomain " sub " is a " $4 " record and points to " $5
-        exit
-    }'
-}
-
-# Main execution
-main() {
-    domain=$1
-    subdomain=$2
-
-    if [ -z "$subdomain" ]; then
-        for sub in www lb-01 web-01 web-02; do
-            get_dns_info "$domain" "$sub"
-        done
-    else
-        get_dns_info "$domain" "$subdomain"
-    fi
-}
-
-main "$@"
+if [ $# -eq 1 ]; then
+	dig +noall +answer 'www.'"$1" | awk '{ print "The subdomain www is a "$4" record and points to "$NF }'
+	dig +noall +answer 'lb-01.'"$1" | awk '{ print "The subdomain lb-01 is a "$4" record and points to "$NF }'
+	dig +noall +answer 'web-01.'"$1" | awk '{ print "The subdomain web-01 is a "$4" record and points to "$NF }'
+	dig +noall +answer 'web-02.'"$1" | awk '{ print "The subdomain web-02 is a "$4" record and points to "$NF }'
+elif [ $# -eq 2 ]; then
+	dig +noall +answer "$2"'.'"$1" | awk -v a="$2" '{ print "The subdomain "a" is a "$4" record and points to "$NF }'
+fi
